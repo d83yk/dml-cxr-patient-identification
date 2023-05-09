@@ -7,5 +7,5 @@ The figure below illustrates the general problem scenario: DL-based patient veri
 # Overview
 The overall project is training, two tests (patient verification and patient identification)
 
-Patient verification (1: 1 comparison for wheather the patient-pair is the same or not)
-Patient identification (1: N comparison for whether the same patient' other image is the top-1-ranked or not)
+* Patient verification (1: 1 comparison for wheather the patient-pair is the same or not)
+* Patient identification (1: N comparison for whether the same patient' other image is the top-1-ranked or not)
