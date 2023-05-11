@@ -12,8 +12,8 @@ The overall project is training, two tests (patient verification and patient ide
 
 # Setup
 ## Requirement libraries
-* Python
-* PyTorch
+* Python == 3.10.8
+* PyTorch == 1.13.0+cu117
 * timm
 * pandas
 * socket
