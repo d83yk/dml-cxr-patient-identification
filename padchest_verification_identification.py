@@ -410,7 +410,7 @@ if __name__=='__main__':
 	parser.add_argument('--main_root', default='./')
 	parser.add_argument('--model_dir', default='models/dropout-5e-01_ep-300_px-320')
 	parser.add_argument('--model_cpt', default='bestmodel.cpt')
-	parser.add_argument('--image_root', default=r'Y:\Studies\DML\Chest\Dataset\PadChest\BIMCV-PadChest-FULL')
+	parser.add_argument('--image_root', default=r'.\images\PadChest\BIMCV-PadChest-FULL')
 	parser.add_argument('--dataset_csv', default=r'.\images\PadChest.txt')
 	parser.add_argument('--pixelsize', default=[512,512], type=int) #PadChest
 	parser.add_argument('--arch', default='tf_efficientnetv2_s')
