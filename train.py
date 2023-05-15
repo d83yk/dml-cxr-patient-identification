@@ -95,16 +95,15 @@ if __name__ == "__main__":
 	parser.add_argument('--weight_decay', default=5e-4, type=float, help='L2 weight decay.')
 	parser.add_argument('--base_root', default='./')
 	parser.add_argument('--model_dir', default='models')
-	parser.add_argument('--image_root', default=r'.\')
+	parser.add_argument('--image_root', default=r'Y:\Studies\DML\Chest\Dataset\CXR8\images')
 	parser.add_argument('--dataset_csv', default=r'.\images\CXR8.csv')
 	parser.add_argument('--pixelsize', default=[320,320], type=int)
 	parser.add_argument('--arch', default='tf_efficientnetv2_s')
-	parser.add_argument('--in_channels', default=1, type=int)
 	parser.add_argument('--rotation', default=10, type=int)
 	parser.add_argument('--perspective', default=True, type=bool)
 	parser.add_argument('--pretrain', default=False, type=bool) 
 	parser.add_argument('--num_patients', default=0, type=int, help='number of patients')
-	parser.add_argument('-b', '--batch_size', default=20,	type=int,	metavar='N', help='mini-batch size')
+	parser.add_argument('-b', '--batch_size', default=60,	type=int,	metavar='N', help='mini-batch size')
 	parser.add_argument('--drop_last', default=False,	type=bool) 
 	parser.add_argument('--num_workers', default=os.cpu_count(), type=int)
 	parser.add_argument('--pin_memory', default=True, type=bool)
@@ -304,13 +303,16 @@ if __name__ == "__main__":
 					'loss': log.epoch_state['loss'],
 					'accuracy': log.epoch_state['accuracy'],
 					'steps': log.epoch_state['steps'],
-					'bestacc1': valid_log.at[epoch, 'valid_acc1'] if best_acc1 < valid_log.at[epoch, 'valid_acc1'] else best_acc1,
+#					'bestacc1': log.best_accuracy,
+					'bestacc1': valid_log.at[epoch, 'valid_acc1'] if log.best_accuracy < valid_log.at[epoch, 'valid_acc1'] else log.best_accuracy,
+
 					},
 				currentmodel_cpt)
 
 		#Save Best model
-		best_log = pd.DataFrame([False],index=[epoch], columns=['best'])
-		if best_acc1 < valid_log.at[epoch, 'valid_acc1']:
+		best_log = pd.DataFrame([log.best_each],index=[epoch], columns=['best'])
+#		if log.best_each:
+		if log.best_accuracy > valid_log.at[epoch, 'valid_acc1']:
 			shutil.copyfile(currentmodel_cpt, bestmodel_cpt)
 		pd.concat([train_log, valid_log, best_log], axis=1).to_csv(log_csv, mode='a', index=False, header=False)
 
