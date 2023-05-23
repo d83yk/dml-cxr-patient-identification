@@ -95,7 +95,7 @@ if __name__ == "__main__":
 	parser.add_argument('--weight_decay', default=5e-4, type=float, help='L2 weight decay.')
 	parser.add_argument('--base_root', default='./')
 	parser.add_argument('--model_dir', default='models')
-	parser.add_argument('--image_root', default=r'Y:\Studies\DML\Chest\Dataset\CXR8\images')
+	parser.add_argument('--image_root', default=r'.\CXR8\images')
 	parser.add_argument('--dataset_csv', default=r'.\images\CXR8.csv')
 	parser.add_argument('--pixelsize', default=[320,320], type=int)
 	parser.add_argument('--arch', default='tf_efficientnetv2_s')
