@@ -93,9 +93,9 @@ if __name__ == "__main__":
 	parser.add_argument('--rho', default=2.0, type=float, help='Rho parameter for SAM.')
 	parser.add_argument('--momentum', default=0.8, type=float, help='SGD Momentum.')
 	parser.add_argument('--weight_decay', default=5e-4, type=float, help='L2 weight decay.')
-	parser.add_argument('--base_root', default='.\')
+	parser.add_argument('--base_root', default='./')
 	parser.add_argument('--model_dir', default='models')
-	parser.add_argument('--image_root', default=r'.\images\CXR8')
+	parser.add_argument('--image_root', default=r'Y:\Studies\DML\Chest\Dataset\CXR8\images')
 	parser.add_argument('--dataset_csv', default=r'.\images\CXR8.csv')
 	parser.add_argument('--pixelsize', default=[320,320], type=int)
 	parser.add_argument('--arch', default='tf_efficientnetv2_s')
@@ -310,10 +310,11 @@ if __name__ == "__main__":
 				currentmodel_cpt)
 
 		#Save Best model
-		best_log = pd.DataFrame([log.best_each],index=[epoch], columns=['best'])
-#		if log.best_each:
+		best_each = False
 		if log.best_accuracy > valid_log.at[epoch, 'valid_acc1']:
 			shutil.copyfile(currentmodel_cpt, bestmodel_cpt)
+			best_each = True
+		best_log = pd.DataFrame([best_each],index=[epoch], columns=['best'])
 		pd.concat([train_log, valid_log, best_log], axis=1).to_csv(log_csv, mode='a', index=False, header=False)
 
 	log.flush()
